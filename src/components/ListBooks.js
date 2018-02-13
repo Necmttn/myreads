@@ -22,6 +22,19 @@ class ListBooks extends React.Component {
         let wantToRead = this.props.shelfBooks.filter((book) => book.shelf === 'wantToRead')
         let read = this.props.shelfBooks.filter((book) => book.shelf === 'read')
 
+
+        const BookShelf = ({title, books}) => (
+          <div className="bookshelf">
+              <h2 className="bookshelf-title">{title}</h2>
+              <div className="bookshelf-books">
+                  <BooksGrid
+                      books={books}
+                      onHandleChange={this.props.updateShelfApp}
+                  />
+              </div>
+          </div>
+        )
+
         return (
 
             <div className="list-books">
@@ -29,36 +42,19 @@ class ListBooks extends React.Component {
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    <div>
-                        <div className="bookshelf">
-                            <h2 className="bookshelf-title">Currently Reading</h2>
-                            <div className="bookshelf-books">
-
-                                <BooksGrid
-                                    books={currentlyReading}
-                                    onHandleChange={this.props.updateShelfApp}
-                                />
-
-                            </div>
-                        </div>
-                        <div className="bookshelf">
-                            <h2 className="bookshelf-title">Want to Read</h2>
-                            <div className="bookshelf-books">
-                                <BooksGrid
-                                    books={wantToRead}
-                                    onHandleChange={this.props.updateShelfApp}
-                                />
-                            </div>
-                        </div>
-                        <div className="bookshelf">
-                            <h2 className="bookshelf-title">Read</h2>
-                            <div className="bookshelf-books">
-                                <BooksGrid
-                                    books={read}
-                                    onHandleChange={this.props.updateShelfApp}
-                                />
-                            </div>
-                        </div>
+                  <div>
+                    <BookShelf
+                      title="Currently Reading"
+                      books={currentlyReading}
+                    />
+                    <BookShelf
+                      title="Want to Read"
+                      books={wantToRead}
+                    />
+                    <BookShelf
+                      title="Read"
+                      books={read}
+                    />
                     </div>
                 </div>
                 <div className="open-search">
@@ -72,5 +68,6 @@ class ListBooks extends React.Component {
         )
     }
 }
+
 
 export default ListBooks
